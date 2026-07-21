@@ -1,0 +1,212 @@
+{
+  "info": {
+    "name": "Peminjaman Baju Adat + Catalog API",
+    "_postman_id": "25e84f2f-c8c0-4d60-9583-c8b0e2a5d318",
+    "description": "Catalog dan peminjaman baju adat",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Catalog",
+      "item": [
+        {
+          "name": "Ambil Semua Catalog",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/catalog?tersedia=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "catalog"
+              ],
+              "query": [
+                {
+                  "key": "tersedia",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Detail Catalog",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/catalog/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "catalog",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Tambah Catalog",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"kode\": \"SND-001\",\n  \"nama\": \"Pakaian Adat Sunda\",\n  \"daerah\": \"Sunda\",\n  \"deskripsi\": \"Set pakaian adat Sunda.\",\n  \"ukuran\": \"M, L, XL\",\n  \"harga\": 160000,\n  \"stok\": 3,\n  \"imageUrl\": \"/catalog/beskap-jawa.svg\",\n  \"aktif\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/catalog",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "catalog"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Ubah Stok",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"stok\": 5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/catalog/1/stok",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "catalog",
+                "1",
+                "stok"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Peminjaman",
+      "item": [
+        {
+          "name": "Simpan Peminjaman dari Catalog",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"namaDepan\": \"Aloysius\",\n  \"namaBelakang\": \"Wibowo\",\n  \"alamat\": \"Jakarta Pusat\",\n  \"nomorWhatsapp\": \"081234567890\",\n  \"catalogId\": 1,\n  \"catatan\": \"Ukuran L\",\n  \"startDate\": \"2026-07-25T10:30:00\",\n  \"endDate\": \"2026-07-27T17:00:00\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/peminjaman",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "peminjaman"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Ambil Semua Peminjaman",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/peminjaman",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "peminjaman"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Upload Gambar Catalog",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/catalog/1/image",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "catalog",
+            "1",
+            "image"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Hapus Gambar Catalog",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/catalog/1/image",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "catalog",
+            "1",
+            "image"
+          ]
+        }
+      }
+    }
+  ]
+}

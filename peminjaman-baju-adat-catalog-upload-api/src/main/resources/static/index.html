@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Sewa Baju Adat</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 32px 16px;
+            background: #f3f4ff;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #17233d;
+        }
+
+        .form-card {
+            width: 100%;
+            max-width: 620px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #dde2ee;
+            border-radius: 6px;
+            box-shadow: 0 3px 12px rgba(22, 37, 66, 0.08);
+            overflow: hidden;
+        }
+
+        .form-header {
+            padding: 28px 34px 22px;
+            border-top: 6px solid #203d3b;
+            border-bottom: 1px solid #e1e5ee;
+        }
+
+        .form-header h1 {
+            margin: 0 0 7px;
+            font-size: 23px;
+        }
+
+        .form-header p {
+            margin: 0;
+            font-size: 13px;
+            color: #67728a;
+        }
+
+        .form-body {
+            padding: 28px 34px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        label,
+        .group-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .required {
+            color: #d62d43;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            min-height: 42px;
+            padding: 10px 12px;
+            border: 1px solid #aeb9ce;
+            border-radius: 3px;
+            background: #ffffff;
+            font-size: 14px;
+            color: #17233d;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: 2px solid rgba(32, 61, 59, 0.16);
+            border-color: #203d3b;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .radio-group {
+            display: grid;
+            gap: 9px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        .radio-option input {
+            width: auto;
+            min-height: auto;
+            margin: 0;
+        }
+
+        .hint {
+            display: block;
+            margin-top: 6px;
+            color: #778199;
+            font-size: 11px;
+        }
+
+        .form-footer {
+            padding: 20px 34px;
+            border-top: 1px solid #e1e5ee;
+            text-align: center;
+        }
+
+        button {
+            min-height: 42px;
+            padding: 10px 22px;
+            border: 0;
+            border-radius: 3px;
+            background: #10a74a;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+
+        .message {
+            display: none;
+            margin-bottom: 18px;
+            padding: 12px 14px;
+            border-radius: 4px;
+            font-size: 13px;
+            white-space: pre-line;
+        }
+
+        .message.success {
+            display: block;
+            color: #176430;
+            background: #e8f8ed;
+            border: 1px solid #9bd6aa;
+        }
+
+        .message.error {
+            display: block;
+            color: #8e1e2d;
+            background: #fff0f2;
+            border: 1px solid #e5adb5;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-header,
+            .form-body,
+            .form-footer {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<main class="form-card">
+    <header class="form-header">
+        <h1>Form Sewa Baju Adat</h1>
+        <p>Isi data berikut untuk melakukan peminjaman.</p>
+    </header>
+
+    <form id="formPeminjaman">
+        <section class="form-body">
+            <div id="message" class="message"></div>
+
+            <div class="form-group">
+                <span class="group-label">
+                    Nama Lengkap <span class="required">*</span>
+                </span>
+
+                <div class="form-row">
+                    <div>
+                        <input
+                                type="text"
+                                id="namaDepan"
+                                placeholder="Nama depan"
+                                maxlength="100"
+                                required
+                        >
+                        <small class="hint">Nama depan</small>
+                    </div>
+
+                    <div>
+                        <input
+                                type="text"
+                                id="namaBelakang"
+                                placeholder="Nama belakang"
+                                maxlength="100"
+                        >
+                        <small class="hint">Nama belakang</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="alamat">
+                    Alamat <span class="required">*</span>
+                </label>
+
+                <textarea
+                        id="alamat"
+                        placeholder="Masukkan alamat lengkap"
+                        required
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="nomorWhatsapp">
+                    Nomor WhatsApp <span class="required">*</span>
+                </label>
+
+                <input
+                        type="tel"
+                        id="nomorWhatsapp"
+                        placeholder="0812-3456-7890"
+                        maxlength="30"
+                        required
+                >
+
+                <small class="hint">
+                    Gunakan nomor WhatsApp yang aktif.
+                </small>
+            </div>
+
+            <div class="form-group">
+                <span class="group-label">
+                    Pilih Baju Adat <span class="required">*</span>
+                </span>
+
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="jenisBaju" value="Jawa" required>
+                        Jawa
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="jenisBaju" value="Bali">
+                        Bali
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="jenisBaju" value="Batak">
+                        Batak
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="jenisBaju" value="Aceh">
+                        Aceh
+                    </label>
+
+                    <label class="radio-option">
+                        <input type="radio" name="jenisBaju" value="Lainnya">
+                        Lainnya
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="catatan">Catatan</label>
+
+                <textarea
+                        id="catatan"
+                        placeholder="Contoh: ukuran L, warna merah"
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <span class="group-label">
+                    Waktu Peminjaman <span class="required">*</span>
+                </span>
+
+                <div class="form-row">
+                    <div>
+                        <label for="startDate">Tanggal Mulai</label>
+                        <input
+                                type="datetime-local"
+                                id="startDate"
+                                required
+                        >
+                    </div>
+
+                    <div>
+                        <label for="endDate">Tanggal Selesai</label>
+                        <input
+                                type="datetime-local"
+                                id="endDate"
+                                required
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="form-footer">
+            <button type="submit" id="submitButton">
+                Simpan &amp; Buka WhatsApp
+            </button>
+        </footer>
+    </form>
+</main>
+
+<script>
+    const form = document.getElementById("formPeminjaman");
+    const messageElement = document.getElementById("message");
+    const submitButton = document.getElementById("submitButton");
+    const startDateElement = document.getElementById("startDate");
+    const endDateElement = document.getElementById("endDate");
+
+    function tampilkanPesan(text, type) {
+        messageElement.className = "message " + type;
+        messageElement.textContent = text;
+        messageElement.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }
+
+    function formatDateTimeLocal(date) {
+        const pad = value => String(value).padStart(2, "0");
+
+        return date.getFullYear()
+            + "-" + pad(date.getMonth() + 1)
+            + "-" + pad(date.getDate())
+            + "T" + pad(date.getHours())
+            + ":" + pad(date.getMinutes());
+    }
+
+    const sekarang = new Date();
+
+    startDateElement.min = formatDateTimeLocal(sekarang);
+    endDateElement.min = formatDateTimeLocal(sekarang);
+
+    startDateElement.addEventListener("change", () => {
+        endDateElement.min = startDateElement.value;
+
+        if (
+            endDateElement.value
+            && endDateElement.value <= startDateElement.value
+        ) {
+            endDateElement.value = "";
+        }
+    });
+
+    form.addEventListener("submit", async event => {
+        event.preventDefault();
+
+        const startDate = startDateElement.value;
+        const endDate = endDateElement.value;
+        const jenisBaju = document.querySelector(
+            'input[name="jenisBaju"]:checked'
+        );
+
+        if (!jenisBaju) {
+            tampilkanPesan(
+                "Silakan pilih jenis baju adat.",
+                "error"
+            );
+            return;
+        }
+
+        if (new Date(endDate) <= new Date(startDate)) {
+            tampilkanPesan(
+                "Tanggal selesai harus setelah tanggal mulai.",
+                "error"
+            );
+            return;
+        }
+
+        const request = {
+            namaDepan:
+                document.getElementById("namaDepan").value,
+            namaBelakang:
+                document.getElementById("namaBelakang").value,
+            alamat:
+                document.getElementById("alamat").value,
+            nomorWhatsapp:
+                document.getElementById("nomorWhatsapp").value,
+            jenisBaju: jenisBaju.value,
+            catatan:
+                document.getElementById("catatan").value,
+            startDate: startDate + ":00",
+            endDate: endDate + ":00"
+        };
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Menyimpan...";
+
+        const whatsappWindow = window.open("", "_blank");
+
+        try {
+            const response = await fetch("/api/peminjaman", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(request)
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                let errorMessage =
+                    result.message || "Data gagal disimpan.";
+
+                if (result.errors) {
+                    errorMessage += "\n"
+                        + Object.values(result.errors).join("\n");
+                }
+
+                tampilkanPesan(errorMessage, "error");
+
+                if (whatsappWindow) {
+                    whatsappWindow.close();
+                }
+
+                return;
+            }
+
+            tampilkanPesan(
+                "Data berhasil disimpan dengan ID "
+                    + result.id
+                    + ". WhatsApp akan dibuka.",
+                "success"
+            );
+
+            if (whatsappWindow) {
+                whatsappWindow.location.href = result.whatsappUrl;
+            } else {
+                window.location.href = result.whatsappUrl;
+            }
+
+            form.reset();
+
+        } catch (error) {
+            console.error(error);
+
+            tampilkanPesan(
+                "Tidak dapat terhubung ke server.",
+                "error"
+            );
+
+            if (whatsappWindow) {
+                whatsappWindow.close();
+            }
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent =
+                "Simpan & Buka WhatsApp";
+        }
+    });
+</script>
+</body>
+</html>
