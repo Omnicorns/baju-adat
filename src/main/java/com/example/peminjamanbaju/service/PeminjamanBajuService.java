@@ -178,7 +178,7 @@ public class PeminjamanBajuService {
                 Nomor WhatsApp: %s
                 Kode Baju: %s
                 Pilihan Baju: %s
-                Harga Sewa: %s
+             
                 Tanggal Mulai: %s
                 Tanggal Selesai: %s
                 Catatan: %s
@@ -189,7 +189,6 @@ public class PeminjamanBajuService {
                 data.getNomorWhatsapp(),
                 kode,
                 data.getJenisBaju(),
-                harga,
                 data.getStartDate().format(dateFormatter),
                 data.getEndDate().format(dateFormatter),
                 catatan
