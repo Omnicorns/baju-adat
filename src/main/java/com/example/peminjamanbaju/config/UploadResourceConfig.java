@@ -1,5 +1,7 @@
 package com.example.peminjamanbaju.config;
 
+
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -9,15 +11,24 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Configuration
-public class UploadResourceConfig   implements WebMvcConfigurer {
-    @Value("${app.upload-directory}")
-    private String uploadDirectory;
+public class UploadResourceConfig
+        implements WebMvcConfigurer {
+
+    private final String uploadDirectory;
+
+    public UploadResourceConfig(
+            @Value("${app.upload-directory}")
+            String uploadDirectory
+    ) {
+        this.uploadDirectory = uploadDirectory;
+    }
 
     @Override
     public void addResourceHandlers(
             ResourceHandlerRegistry registry
     ) {
-        Path uploadPath = Paths.get(uploadDirectory)
+        Path uploadPath = Paths
+                .get(uploadDirectory)
                 .toAbsolutePath()
                 .normalize();
 
@@ -29,11 +40,7 @@ public class UploadResourceConfig   implements WebMvcConfigurer {
         }
 
         registry
-                .addResourceHandler(
-                        "/uploads/**"
-                )
-                .addResourceLocations(
-                        resourceLocation
-                );
+                .addResourceHandler("/uploads/**")
+                .addResourceLocations(resourceLocation);
     }
 }

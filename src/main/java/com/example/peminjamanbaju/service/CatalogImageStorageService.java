@@ -14,26 +14,39 @@ import java.nio.file.StandardCopyOption;
 import java.util.Map;
 import java.util.UUID;
 
+
 @Service
 public class CatalogImageStorageService {
 
-    private static final long MAX_FILE_SIZE = 5L * 1024L * 1024L;
+    private static final long MAX_FILE_SIZE =
+            5L * 1024L * 1024L;
 
-    private static final Map<String, String> ALLOWED_TYPES = Map.of(
-            "image/jpeg", ".jpg",
-            "image/png", ".png",
-            "image/webp", ".webp"
-    );
+    private static final Map<String, String> ALLOWED_TYPES =
+            Map.of(
+                    "image/jpeg", ".jpg",
+                    "image/png", ".png",
+                    "image/webp", ".webp"
+            );
 
-    private static final String PUBLIC_PATH = "/uploads/catalog/";
+    private static final String PUBLIC_PATH =
+            "/uploads/catalog/";
 
     private final Path uploadRoot;
 
     public CatalogImageStorageService(
-            @Value("${app.upload.catalog-dir:./uploads/catalog}")
+            @Value("${app.upload-directory}")
             String uploadDirectory
     ) {
-        this.uploadRoot = Paths.get(uploadDirectory)
+        /*
+         * Root property:
+         * /opt/peminjaman-baju-adat/uploads
+         *
+         * File katalog disimpan ke:
+         * /opt/peminjaman-baju-adat/uploads/catalog
+         */
+        this.uploadRoot = Paths
+                .get(uploadDirectory)
+                .resolve("catalog")
                 .toAbsolutePath()
                 .normalize();
     }
@@ -41,45 +54,76 @@ public class CatalogImageStorageService {
     public String save(MultipartFile file) {
         validate(file);
 
-        String extension = ALLOWED_TYPES.get(file.getContentType());
-        String filename = UUID.randomUUID() + extension;
-        Path target = uploadRoot.resolve(filename).normalize();
+        String contentType = file.getContentType();
+        String extension = ALLOWED_TYPES.get(contentType);
+
+        String filename =
+                UUID.randomUUID() + extension;
+
+        Path target = uploadRoot
+                .resolve(filename)
+                .normalize();
 
         if (!target.startsWith(uploadRoot)) {
-            throw new ValidasiBisnisException("Lokasi file tidak valid");
+            throw new ValidasiBisnisException(
+                    "Lokasi file tidak valid"
+            );
         }
 
         try {
             Files.createDirectories(uploadRoot);
 
-            try (InputStream inputStream = file.getInputStream()) {
+            try (
+                    InputStream inputStream =
+                            file.getInputStream()
+            ) {
                 Files.copy(
                         inputStream,
                         target,
                         StandardCopyOption.REPLACE_EXISTING
                 );
             }
+
+            if (!Files.exists(target)) {
+                throw new IOException(
+                        "File tidak ditemukan setelah disimpan"
+                );
+            }
+
+            return PUBLIC_PATH + filename;
+
         } catch (IOException exception) {
             throw new ValidasiBisnisException(
-                    "Gambar gagal disimpan: " + exception.getMessage()
+                    "Gambar gagal disimpan: "
+                            + exception.getMessage()
             );
         }
-
-        return PUBLIC_PATH + filename;
     }
 
     public void deleteByUrl(String imageUrl) {
-        if (imageUrl == null || !imageUrl.startsWith(PUBLIC_PATH)) {
+        if (
+                imageUrl == null ||
+                        !imageUrl.startsWith(PUBLIC_PATH)
+        ) {
             return;
         }
 
-        String filename = imageUrl.substring(PUBLIC_PATH.length());
+        String filename =
+                imageUrl.substring(
+                        PUBLIC_PATH.length()
+                );
 
-        if (filename.isBlank() || filename.contains("/") || filename.contains("\\")) {
+        if (
+                filename.isBlank() ||
+                        filename.contains("/") ||
+                        filename.contains("\\")
+        ) {
             return;
         }
 
-        Path target = uploadRoot.resolve(filename).normalize();
+        Path target = uploadRoot
+                .resolve(filename)
+                .normalize();
 
         if (!target.startsWith(uploadRoot)) {
             return;
@@ -88,13 +132,18 @@ public class CatalogImageStorageService {
         try {
             Files.deleteIfExists(target);
         } catch (IOException ignored) {
-            // Data katalog tetap dapat diproses meskipun file lama gagal dihapus.
+            /*
+             * Data katalog tetap diproses walaupun
+             * gambar lama gagal dihapus.
+             */
         }
     }
 
     private void validate(MultipartFile file) {
         if (file == null || file.isEmpty()) {
-            throw new ValidasiBisnisException("File gambar wajib dipilih");
+            throw new ValidasiBisnisException(
+                    "File gambar wajib dipilih"
+            );
         }
 
         if (file.getSize() > MAX_FILE_SIZE) {
@@ -103,7 +152,12 @@ public class CatalogImageStorageService {
             );
         }
 
-        if (!ALLOWED_TYPES.containsKey(file.getContentType())) {
+        String contentType = file.getContentType();
+
+        if (
+                contentType == null ||
+                        !ALLOWED_TYPES.containsKey(contentType)
+        ) {
             throw new ValidasiBisnisException(
                     "Format gambar harus JPG, PNG, atau WEBP"
             );
