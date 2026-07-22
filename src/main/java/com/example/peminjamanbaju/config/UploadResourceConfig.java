@@ -30,7 +30,7 @@ public class UploadResourceConfig   implements WebMvcConfigurer {
 
         registry
                 .addResourceHandler(
-                        "/baju-adat/uploads/**"
+                        "/uploads/**"
                 )
                 .addResourceLocations(
                         resourceLocation
