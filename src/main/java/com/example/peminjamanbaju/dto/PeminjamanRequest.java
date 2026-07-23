@@ -1,5 +1,6 @@
 package com.example.peminjamanbaju.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -31,9 +32,11 @@ public record PeminjamanRequest(
         String catatan,
 
         @NotNull(message = "Tanggal mulai wajib diisi")
+        @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDateTime startDate,
 
         @NotNull(message = "Tanggal selesai wajib diisi")
+        @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDateTime endDate
 ) {
     @AssertTrue(message = "Tanggal selesai harus setelah tanggal mulai")
