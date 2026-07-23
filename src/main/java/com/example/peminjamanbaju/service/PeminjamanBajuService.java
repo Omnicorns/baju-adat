@@ -205,14 +205,31 @@ public class PeminjamanBajuService {
     }
 
     private String normalisasiNomorWhatsapp(String nomor) {
-        if (nomor == null) {
-            return "";
+        if (nomor == null || nomor.isBlank()) {
+            throw new IllegalArgumentException("Nomor WhatsApp wajib diisi");
         }
 
-        String hasil = nomor.replaceAll("[^0-9]", "");
+        String input = nomor.trim();
+
+        // Hanya boleh angka, tanda +, spasi, kurung, dan strip
+        if (!input.matches("^[0-9+()\\s-]+$")) {
+            throw new IllegalArgumentException(
+                    "Nomor WhatsApp tidak boleh mengandung huruf"
+            );
+        }
+
+        String hasil = input.replaceAll("[^0-9]", "");
 
         if (hasil.startsWith("0")) {
             hasil = "62" + hasil.substring(1);
+        } else if (hasil.startsWith("8")) {
+            hasil = "62" + hasil;
+        }
+
+        if (!hasil.matches("^62[0-9]{8,13}$")) {
+            throw new IllegalArgumentException(
+                    "Format nomor WhatsApp tidak valid"
+            );
         }
 
         return hasil;
