@@ -66,8 +66,8 @@ public class PeminjamanBajuService {
                 .jenisBaju(jenisBaju)
                 .hargaSewa(hargaSewa)
                 .catatan(clean(request.catatan()))
-                .startDate(request.startDate())
-                .endDate(request.endDate())
+                .startDate(request.startDate().atStartOfDay())
+                .endDate(request.endDate().atStartOfDay())
                 .status(StatusPeminjaman.MENUNGGU)
                 .build();
 
@@ -148,7 +148,7 @@ public class PeminjamanBajuService {
             String namaLengkap
     ) {
         DateTimeFormatter dateFormatter =
-                DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+                DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         NumberFormat currencyFormatter =
                 NumberFormat.getCurrencyInstance(
@@ -178,7 +178,6 @@ public class PeminjamanBajuService {
                 Nomor WhatsApp: %s
                 Kode Baju: %s
                 Pilihan Baju: %s
-             
                 Tanggal Mulai: %s
                 Tanggal Selesai: %s
                 Catatan: %s
@@ -189,8 +188,8 @@ public class PeminjamanBajuService {
                 data.getNomorWhatsapp(),
                 kode,
                 data.getJenisBaju(),
-                data.getStartDate().format(dateFormatter),
-                data.getEndDate().format(dateFormatter),
+                data.getStartDate(),
+                data.getEndDate(),
                 catatan
         );
 

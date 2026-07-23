@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record PeminjamanRequest(
@@ -33,11 +34,11 @@ public record PeminjamanRequest(
 
         @NotNull(message = "Tanggal mulai wajib diisi")
         @JsonFormat(pattern = "yyyy-MM-dd")
-        LocalDateTime startDate,
+        LocalDate startDate,
 
         @NotNull(message = "Tanggal selesai wajib diisi")
         @JsonFormat(pattern = "yyyy-MM-dd")
-        LocalDateTime endDate
+        LocalDate endDate
 ) {
     @AssertTrue(message = "Tanggal selesai harus setelah tanggal mulai")
     public boolean isRentangTanggalValid() {
