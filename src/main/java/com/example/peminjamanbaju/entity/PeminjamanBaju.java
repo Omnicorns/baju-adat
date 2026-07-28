@@ -37,6 +37,12 @@ public class PeminjamanBaju {
     @Column(name = "kode_baju", length = 30)
     private String kodeBaju;
 
+    @Column(name = "ukuran", length = 30)
+    private String ukuran;
+
+    @Column(name = "lingkar_dada", length = 30)
+    private String  lingkarDada;
+
     @Column(name = "jenis_baju", nullable = false, length = 150)
     private String jenisBaju;
 
@@ -45,6 +51,8 @@ public class PeminjamanBaju {
 
     @Column(columnDefinition = "TEXT")
     private String catatan;
+
+
 
     @Column(name = "start_date", nullable = false)
     private LocalDateTime startDate;

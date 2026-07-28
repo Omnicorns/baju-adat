@@ -21,6 +21,12 @@ public record PeminjamanRequest(
         @NotBlank(message = "Alamat wajib diisi")
         String alamat,
 
+
+        String  lingkarDada,
+
+        @NotBlank(message = "ukuran")
+        String ukuran,
+
         @NotBlank(message = "Nomor WhatsApp wajib diisi")
         @Size(max = 30, message = "Nomor WhatsApp maksimal 30 karakter")
         String nomorWhatsapp,
