@@ -54,14 +54,14 @@ public record PeminjamanRequest(
         @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate endDate
 ) {
-    @AssertTrue(message = "Tanggal selesai harus setelah tanggal mulai")
-    public boolean isRentangTanggalValid() {
-        if (startDate == null || endDate == null) {
-            return true;
-        }
-
-        return endDate.isAfter(startDate);
-    }
+//    @AssertTrue(message = "Tanggal selesai harus setelah tanggal mulai")
+//    public boolean isRentangTanggalValid() {
+//        if (startDate == null || endDate == null) {
+//            return true;
+//        }
+//
+//        return endDate.isAfter(startDate);
+//    }
 
     @AssertTrue(message = "Pilih katalog baju atau isi jenis baju")
     public boolean isPilihanBajuValid() {
