@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/baju-adat/static/css/main.8019830b.css",
-    "main.js": "/baju-adat/static/js/main.c6f97d80.js",
+    "main.js": "/baju-adat/static/js/main.b4fe7f8f.js",
     "index.html": "/baju-adat/index.html",
     "main.8019830b.css.map": "/baju-adat/static/css/main.8019830b.css.map",
-    "main.c6f97d80.js.map": "/baju-adat/static/js/main.c6f97d80.js.map"
+    "main.b4fe7f8f.js.map": "/baju-adat/static/js/main.b4fe7f8f.js.map"
   },
   "entrypoints": [
     "static/css/main.8019830b.css",
-    "static/js/main.c6f97d80.js"
+    "static/js/main.b4fe7f8f.js"
   ]
 }
