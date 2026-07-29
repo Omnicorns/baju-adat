@@ -43,6 +43,15 @@ public class PeminjamanBaju {
     @Column(name = "lingkar_dada", length = 30)
     private String  lingkarDada;
 
+    @Column(name = "kualitas", length = 30)
+    private String  kualitas;
+
+    @Column(name = "jenis_kelamin", length = 30)
+    private String jenisKelamin;
+
+    @Column(name = "lingkar_pinggang", length = 30)
+    private String lingkarPinggang;
+
     @Column(name = "jenis_baju", nullable = false, length = 150)
     private String jenisBaju;
 

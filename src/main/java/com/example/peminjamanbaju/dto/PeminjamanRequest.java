@@ -22,7 +22,15 @@ public record PeminjamanRequest(
         String alamat,
 
 
-        String  lingkarDada,
+        String lingkarDada,
+
+        String lingkarPinggang,
+
+        @NotBlank(message = "Jenis Kelamin wajib diisi")
+        String jenisKelamin,
+
+        @NotBlank(message = "Kualitas wajib diisi")
+        String kualitas,
 
         @NotBlank(message = "ukuran")
         String ukuran,

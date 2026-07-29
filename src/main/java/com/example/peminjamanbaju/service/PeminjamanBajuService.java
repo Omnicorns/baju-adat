@@ -68,6 +68,9 @@ public class    PeminjamanBajuService {
                 .catatan(clean(request.catatan()))
                 .ukuran(clean(request.ukuran()))
                 .lingkarDada(clean(request.lingkarDada()))
+                .lingkarPinggang(clean(request.lingkarPinggang()))
+                .jenisKelamin(clean(request.jenisKelamin()))
+                .kualitas(clean((request.kualitas())))
                 .startDate(request.startDate().atStartOfDay())
                 .endDate(request.endDate().atStartOfDay())
                 .status(StatusPeminjaman.MENUNGGU)
@@ -177,11 +180,14 @@ public class    PeminjamanBajuService {
                 ID Pesanan: %s
                 Nama: %s
                 Alamat: %s
+                Jenis Kelamin: %s
                 Nomor WhatsApp: %s
                 Kode Baju: %s
                 Pilihan Baju: %s
+                Kategori: %s
                 Ukuran: %s
                 Lingkar Dada: %s cm
+                Lingkar Pinggang: %s cm
                 Tanggal Mulai: %s
                 Tanggal Selesai: %s
                 Catatan: %s
@@ -189,13 +195,16 @@ public class    PeminjamanBajuService {
                 data.getId(),
                 namaLengkap,
                 data.getAlamat(),
+                data.getJenisKelamin(),
                 data.getNomorWhatsapp(),
                 kode,
                 data.getJenisBaju(),
+                data.getKualitas(),
                 data.getUkuran(),
                 data.getLingkarDada(),
-                data.getStartDate(),
-                data.getEndDate(),
+                data.getLingkarPinggang(),
+                data.getStartDate().format(dateFormatter),
+                data.getEndDate().format(dateFormatter),
                 catatan
         );
 
